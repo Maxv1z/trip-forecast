@@ -7,7 +7,11 @@ const Search = () => {
         <div className="search-container">
             <div className="search-wrapper">
                 <FaSearch className="search-icon" />
-                <input type="text" placeholder="Search..." className="search-input" />
+                <input
+                    type="text"
+                    placeholder="Search your trip"
+                    className="search-input"
+                />
             </div>
         </div>
     );
