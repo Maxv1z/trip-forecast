@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar/Navbar";
 import {AuthContextProvider} from "./context/AuthContext";
 import Cities from "./components/Cities/Cities";
 import Search from "./components/Search/Search";
+import WeekView from "./components/WeekView/WeekView";
 
 const queryClient = new QueryClient();
 
@@ -13,6 +14,7 @@ export default function App() {
                 <Navbar />
                 <Search />
                 <Cities />
+                <WeekView />
             </QueryClientProvider>
         </AuthContextProvider>
     );

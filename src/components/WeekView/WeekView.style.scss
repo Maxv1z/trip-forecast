@@ -1,0 +1,17 @@
+.week-view-container {
+    margin: 30px 0 0 0;
+    padding: 20px;
+    border: 1px solid;
+
+    h1 {
+    }
+
+    .scroll {
+        margin: 30px 0 0 0;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        display: flex;
+        gap: 25px;
+    }
+}
