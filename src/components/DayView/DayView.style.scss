@@ -1,0 +1,56 @@
+.day-view-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: aquamarine;
+
+    .day-weather {
+        text-align: center;
+        margin-bottom: 20px;
+        width: 100%;
+
+        h3 {
+            font-size: 3rem;
+        }
+
+        .weather-and-temp {
+            display: flex;
+            justify-content: center; /* Center the container horizontally */
+            align-items: center; /* Center the items vertically */
+            width: 100%;
+            margin: 15px 0 0 0;
+
+            img {
+                width: 50px;
+                height: 50px;
+                margin-right: 10px; /* Add margin to separate the image from the text */
+            }
+
+            p {
+                font-size: 3.3rem;
+                text-align: center; /* Center the text horizontally */
+            }
+        }
+
+        .city-name {
+            margin: 25px 0 0 0;
+            font-size: 1.5rem;
+        }
+    }
+
+    .countdown {
+        display: flex;
+        justify-content: center;
+        margin: 80px 0 0 0;
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 10px; /* Add some space between countdown items */
+        }
+    }
+}

@@ -1,0 +1,22 @@
+#root {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 400px; /* Make the left side take the remaining space */
+    grid-template-rows: 1fr;
+    grid-template-areas: "left-side  day-view"; /* Define areas for components */
+
+    .left-side {
+        grid-area: left-side;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .day-view {
+        grid-area: day-view;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
