@@ -1,12 +1,12 @@
 .city-card-container {
     background-color: #fff;
-    max-width: 230px;
+    max-width: 201px;
     max-height: 380px;
     border: 1px solid;
-    margin: 10px;
 
     img {
         object-fit: cover;
+        margin: 0;
         width: 199px;
         height: 199px;
     }
