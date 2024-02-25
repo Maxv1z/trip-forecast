@@ -1,7 +1,15 @@
 import React from "react";
 import "./CityCard.style.scss";
 
-const CityCard = () => {
+const CityCard = ({city}) => {
+    function convertTimestampToDate(timestamp) {
+        const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
+        return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    }
+
+    const dateStart = convertTimestampToDate(city.dateStart);
+    const dateEnd = convertTimestampToDate(city.dateEnd);
+
     return (
         <div className="city-card-container">
             <img
@@ -9,8 +17,10 @@ const CityCard = () => {
                 alt=""
             />
             <div className="text-container">
-                <h3>City name</h3>
-                <p>14.07.1811 - 14.07.1811</p>
+                <h3>{city.cityName}</h3>
+                <p>
+                    {dateStart} - {dateEnd}
+                </p>
             </div>
         </div>
     );

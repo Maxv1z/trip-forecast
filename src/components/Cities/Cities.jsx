@@ -2,14 +2,25 @@ import React from "react";
 import "./Cities.style.scss";
 import CityCard from "../CityCard/CityCard";
 
+import {useGetUserTrips} from "../../api/queries";
+import {UserAuth} from "../../context/AuthContext";
+
 const Cities = () => {
-    const cities = [1, 3, 56, 6, 1];
+    const {data: cities, isLoading, isError, error} = useGetUserTrips();
+
+    // const cities = getUserTrips();
+    if (isLoading) {
+        return <h1>Loading</h1>;
+    }
+    if (isError) {
+        return <h1>Error: {error}</h1>;
+    }
 
     return (
         <div className="cities-container">
             <div className="scroll">
-                {cities.map((city, index) => (
-                    <CityCard key={index} city={city} />
+                {cities?.map((city) => (
+                    <CityCard key={city.id} city={city} />
                 ))}
                 <button className="add-city-button">
                     <p className="plus">+</p>

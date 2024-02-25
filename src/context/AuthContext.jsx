@@ -15,21 +15,42 @@ export const AuthContextProvider = ({children}) => {
 
     const googleSignIn = () => {
         const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider);
+        signInWithPopup(auth, provider).then((result) => {
+            // Save user data to localStorage
+            localStorage.setItem("user", JSON.stringify(result.user));
+        });
     };
 
     const logOut = () => {
-        signOut(auth);
+        signOut(auth).then(() => {
+            // Remove user data from localStorage
+            localStorage.removeItem("user");
+            // Refresh the window
+            window.location.reload();
+        });
     };
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-            console.log("user", currentUser);
-        });
-        return () => {
-            unsubscribe();
-        };
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            // If user data is available in localStorage, set the user state
+            setUser(JSON.parse(storedUser));
+        } else {
+            // If user data is not available in localStorage, set up the listener
+            const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+                if (currentUser) {
+                    setUser(currentUser);
+                    // Save user data to localStorage
+                    localStorage.setItem("user", JSON.stringify(currentUser));
+                } else {
+                    // Try to log in user if not available in localStorage
+                    signInWithRedirect(auth, new GoogleAuthProvider());
+                }
+            });
+            return () => {
+                unsubscribe();
+            };
+        }
     }, []);
 
     return (
