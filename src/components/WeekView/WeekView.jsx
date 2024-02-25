@@ -1,16 +1,51 @@
-import React from "react";
+import {useState, useEffect} from "react";
 import "./WeekView.style.scss";
 import WeekViewCard from "./WeekViewCard";
+import {useActiveCity} from "../../context/ActiveCityContext";
+import {getWeekWeather} from "../../api";
+import {format} from "date-fns";
 
 const WeekView = () => {
-    const week = [1, 3, 4, 5, 6, 10];
+    const [forecast, setForecast] = useState(null);
+    const city = useActiveCity();
+
+    function convertTimestampToDate(timestamp) {
+        const milliseconds = timestamp.seconds * 1000;
+        const date = new Date(milliseconds);
+        const formattedDate = format(date, "yyyy-MM-dd");
+        return formattedDate;
+    }
+
+    useEffect(() => {
+        const fetchWeather = async () => {
+            try {
+                const forecastData = await getWeekWeather(
+                    city.activeCity.cityName,
+                    convertTimestampToDate(city.activeCity.dateStart),
+                    convertTimestampToDate(city.activeCity.dateEnd)
+                );
+                setForecast(forecastData);
+            } catch (error) {
+                console.error("Error fetching weather:", error);
+            }
+        };
+
+        if (city && city.activeCity) {
+            fetchWeather();
+        }
+    }, [city]);
+
     return (
         <div className="week-view-container">
             <h1>Week</h1>
             <div className="scroll">
-                {week.map((day) => (
-                    <WeekViewCard key={day} />
-                ))}
+                {forecast ? (
+                    forecast.days.map((day, index) => (
+                        <WeekViewCard key={index} day={day} />
+                    ))
+                ) : (
+                    <p>Loading data</p>
+                )}
             </div>
         </div>
     );

@@ -51,6 +51,22 @@ export const getDayWeather = async (cityName) => {
     }
 }
 
+export const getWeekWeather = async (cityName, dateStart, dateEnd) => {
+    try {
+        const key = 'GJSG9X7EXWMMVWCZ6YK9Y27P3';
+        const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${cityName}/${dateStart}/${dateEnd}?unitGroup=metric&key=${key} `;
+
+        const response = await axios.get(url);
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            throw new Error('Failed to retrieve weather data');
+        }
+    } catch (error) {
+        console.error('Error getting weather for the day:', error);
+        throw error;
+    }
+}
 
 
 // export const getCitiesToChoose = async () => {
@@ -59,9 +75,5 @@ export const getDayWeather = async (cityName) => {
 
 
 // export const addCityToDb = async () => {
-
-// }
-
-// export const getWeekWeather = async () => {
 
 // }

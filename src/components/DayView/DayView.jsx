@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./DayView.style.scss";
 import {getDayWeather} from "../../api";
 import {useActiveCity} from "../../context/ActiveCityContext";
+import {format} from "date-fns";
 
 const DayView = () => {
     const [weather, setWeather] = useState(null); // State to store weather data
@@ -34,7 +35,7 @@ const DayView = () => {
     }, [city]);
 
     useEffect(() => {
-        // Update countdown only when city or city's dateEnd changes
+        // Update countdown only when city or city's dateStart changes
         if (city?.activeCity?.dateStart) {
             interval = setInterval(updateCountdown, 1000);
             return () => clearInterval(interval);
@@ -65,12 +66,19 @@ const DayView = () => {
         setCountdown({days, hours, minutes, seconds});
     };
 
+    // Get the day of the week from the weather data
+    const dayOfWeek = weather
+        ? format(new Date(weather?.days[0]?.datetime), "EEEE")
+        : null;
+
+    console.log("DAY OF WEEK", dayOfWeek);
+
     return (
         <div className="day-view-container">
             <div className="day-weather">
-                <h3>Sunday</h3>
+                <h3>{dayOfWeek}</h3>
                 <div className="weather-and-temp">
-                    <img src={`src/assets/icons/${weather?.days[0].icon}.svg`} alt="" />
+                    <img src={`src/assets/icons/${weather?.days[0]?.icon}.svg`} alt="" />
                     <p>{weather ? weather.days[0].temp : ""}°C</p>
                 </div>
                 <p className="city-name">{weather ? weather.address : ""}</p>
