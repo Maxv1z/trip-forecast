@@ -1,5 +1,6 @@
 import React from "react";
 import "./CityCard.style.scss";
+import {useActiveCity} from "../../context/ActiveCityContext";
 
 const CityCard = ({city}) => {
     function convertTimestampToDate(timestamp) {
@@ -7,11 +8,17 @@ const CityCard = ({city}) => {
         return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     }
 
+    const {changeActiveCity} = useActiveCity();
+
+    const handleClick = () => {
+        changeActiveCity(city);
+    };
+
     const dateStart = convertTimestampToDate(city.dateStart);
     const dateEnd = convertTimestampToDate(city.dateEnd);
 
     return (
-        <div className="city-card-container">
+        <div className="city-card-container" onClick={handleClick}>
             <img
                 src="https://media.cntraveler.com/photos/5b914e80d5806340ca438db1/16:9/w_1920%2Cc_limit/BrandenburgGate_2018_GettyImages-549093677.jpg"
                 alt=""

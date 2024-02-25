@@ -1,6 +1,5 @@
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
-import { UserAuth } from '../context/AuthContext';
-import { useEffect } from 'react';
+import axios from 'axios';
 
 const db = getFirestore();
 
@@ -35,6 +34,24 @@ export const getUserTrips = async () => {
 };
 
 
+export const getDayWeather = async (cityName) => {
+    try {
+        const key = 'GJSG9X7EXWMMVWCZ6YK9Y27P3';
+        const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${cityName}/today?unitGroup=metric&include=days&key=${key}&contentType=json`;
+
+        const response = await axios.get(url);
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            throw new Error('Failed to retrieve weather data');
+        }
+    } catch (error) {
+        console.error('Error getting weather for the day:', error);
+        throw error;
+    }
+}
+
+
 
 // export const getCitiesToChoose = async () => {
 
@@ -46,8 +63,5 @@ export const getUserTrips = async () => {
 // }
 
 // export const getWeekWeather = async () => {
-
-// }
-// export const getDayWeather = async () => {
 
 // }

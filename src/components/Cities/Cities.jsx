@@ -6,6 +6,7 @@ import {useGetUserTrips} from "../../api/queries";
 import {UserAuth} from "../../context/AuthContext";
 
 const Cities = () => {
+    const user = UserAuth();
     const {data: cities, isLoading, isError, error} = useGetUserTrips();
 
     // const cities = getUserTrips();

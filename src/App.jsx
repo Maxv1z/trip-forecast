@@ -1,5 +1,4 @@
 import Navbar from "./components/Navbar/Navbar";
-import {UserAuth} from "./context/AuthContext";
 import Cities from "./components/Cities/Cities";
 import Search from "./components/Search/Search";
 import WeekView from "./components/WeekView/WeekView";
