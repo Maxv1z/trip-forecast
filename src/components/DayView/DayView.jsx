@@ -5,7 +5,7 @@ import {useActiveCity} from "../../context/ActiveCityContext";
 import {format} from "date-fns";
 
 const DayView = () => {
-    const [weather, setWeather] = useState(null); // State to store weather data
+    const [weather, setWeather] = useState(null);
     const [countdown, setCountdown] = useState({
         days: 0,
         hours: 0,
@@ -45,10 +45,8 @@ const DayView = () => {
     const updateCountdown = () => {
         if (!city || !city.activeCity.dateStart) return;
 
-        const startDateInSeconds = city.activeCity.dateStart.seconds || 0;
-        const startDateInMilliseconds = startDateInSeconds * 1000;
-
-        const startDate = new Date(startDateInMilliseconds);
+        const startDateString = city.activeCity.dateStart;
+        const startDate = new Date(startDateString);
         const currentDate = new Date();
 
         const totalSeconds = Math.floor((startDate - currentDate) / 1000);

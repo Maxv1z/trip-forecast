@@ -1,13 +1,18 @@
-import React from "react";
+import {useState} from "react";
 import "./Cities.style.scss";
 import CityCard from "../CityCard/CityCard";
 
 import {useGetUserTrips} from "../../api/queries";
 import {UserAuth} from "../../context/AuthContext";
+import Modal from "../Modal/Modal";
 
 const Cities = () => {
-    const user = UserAuth();
     const {data: cities, isLoading, isError, error} = useGetUserTrips();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleModalOpen = () => {
+        setIsModalOpen(true);
+    };
 
     // const cities = getUserTrips();
     if (isLoading) {
@@ -23,10 +28,15 @@ const Cities = () => {
                 {cities?.map((city) => (
                     <CityCard key={city.id} city={city} />
                 ))}
-                <button className="add-city-button">
+                <button className="add-city-button" onClick={handleModalOpen}>
                     <p className="plus">+</p>
                     <p>Add trip</p>
                 </button>
+                {isModalOpen && (
+                    <Modal
+                        closeModal={() => setIsModalOpen(false)}
+                    />
+                )}
             </div>
         </div>
     );

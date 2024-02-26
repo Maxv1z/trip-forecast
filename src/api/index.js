@@ -1,4 +1,4 @@
-import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, query, where, getDocs, addDoc } from 'firebase/firestore';
 import axios from 'axios';
 
 const db = getFirestore();
@@ -69,11 +69,27 @@ export const getWeekWeather = async (cityName, dateStart, dateEnd) => {
 }
 
 
+export const addTripToDb = async (dateStart, dateEnd, userId, cityName) => {
+    try {
+        // Add a new document with a generated id to the 'trips' collection
+        const tripRef = await addDoc(collection(db, 'trips'), {
+            dateStart,
+            dateEnd,
+            userId,
+            cityName
+        });
+        console.log('Trip added with ID: ', tripRef.id);
+
+        const updatedUserTrips = await getUserTrips();
+        return updatedUserTrips;
+    } catch (error) {
+        console.error('Error adding trip to database: ', error);
+        throw error;
+    }
+};
+
 // export const getCitiesToChoose = async () => {
 
 // }
 
 
-// export const addCityToDb = async () => {
-
-// }

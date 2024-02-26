@@ -3,19 +3,11 @@ import "./CityCard.style.scss";
 import {useActiveCity} from "../../context/ActiveCityContext";
 
 const CityCard = ({city}) => {
-    function convertTimestampToDate(timestamp) {
-        const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
-        return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-    }
-
     const {changeActiveCity} = useActiveCity();
 
     const handleClick = () => {
         changeActiveCity(city);
     };
-
-    const dateStart = convertTimestampToDate(city.dateStart);
-    const dateEnd = convertTimestampToDate(city.dateEnd);
 
     return (
         <div className="city-card-container" onClick={handleClick}>
@@ -26,7 +18,7 @@ const CityCard = ({city}) => {
             <div className="text-container">
                 <h3>{city.cityName}</h3>
                 <p>
-                    {dateStart} - {dateEnd}
+                    {city.dateStart} - {city.dateEnd}
                 </p>
             </div>
         </div>

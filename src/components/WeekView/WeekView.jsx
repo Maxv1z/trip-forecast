@@ -9,20 +9,13 @@ const WeekView = () => {
     const [forecast, setForecast] = useState(null);
     const city = useActiveCity();
 
-    function convertTimestampToDate(timestamp) {
-        const milliseconds = timestamp.seconds * 1000;
-        const date = new Date(milliseconds);
-        const formattedDate = format(date, "yyyy-MM-dd");
-        return formattedDate;
-    }
-
     useEffect(() => {
         const fetchWeather = async () => {
             try {
                 const forecastData = await getWeekWeather(
                     city.activeCity.cityName,
-                    convertTimestampToDate(city.activeCity.dateStart),
-                    convertTimestampToDate(city.activeCity.dateEnd)
+                    city.activeCity.dateStart,
+                    city.activeCity.dateEnd
                 );
                 setForecast(forecastData);
             } catch (error) {
