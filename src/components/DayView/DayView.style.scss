@@ -8,6 +8,10 @@
     background-color: #110e3b;
     color: white;
 
+    @media (max-width: 768px) {
+        min-height: 300px;
+    }
+
     .day-weather {
         text-align: center;
         margin-bottom: 20px;
@@ -15,30 +19,41 @@
 
         h3 {
             font-size: 3rem;
+            @media (max-width: 768px) {
+                margin-top: 30px;
+            }
         }
 
         .weather-and-temp {
             display: flex;
-            justify-content: center; /* Center the container horizontally */
-            align-items: center; /* Center the items vertically */
+            justify-content: center;
+            align-items: center;
             width: 100%;
             margin: 15px 0 0 0;
 
             img {
                 width: 50px;
                 height: 50px;
-                margin-right: 10px; /* Add margin to separate the image from the text */
+                margin-right: 10px;
             }
 
             p {
                 font-size: 3.3rem;
-                text-align: center; /* Center the text horizontally */
+                text-align: center;
+
+                @media (max-width: 768px) {
+                    font-size: 2rem;
+                }
             }
         }
 
         .city-name {
             margin: 25px 0 0 0;
             font-size: 1.5rem;
+
+            @media (max-width: 768px) {
+                margin-top: 10px;
+            }
         }
     }
 
@@ -51,6 +66,10 @@
         display: flex;
         justify-content: center;
         margin: 80px 0 0 0;
+
+        @media (max-width: 768px) {
+            margin: 10px 0 40px 0;
+        }
 
         .countdown-item {
             display: flex;

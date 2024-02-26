@@ -17,9 +17,10 @@ const CityCard = ({city}) => {
             />
             <div className="text-container">
                 <h3>{city.cityName}</h3>
-                <p>
-                    {city.dateStart} - {city.dateEnd}
-                </p>
+                <div className="dates">
+                    <p>{city.dateStart}</p>
+                    <p id="date-end">{city.dateEnd}</p>
+                </div>
             </div>
         </div>
     );
