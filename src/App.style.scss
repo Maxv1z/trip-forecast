@@ -11,6 +11,7 @@
         display: flex;
         flex-direction: column;
         overflow-y: auto;
+        width: 100%; /* Set left-side to take full width */
     }
 
     .day-view {
@@ -18,5 +19,24 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        visibility: visible; /* Initially set to visible */
+        width: 400px; /* Set width for day-view */
+
+        @media screen and (max-width: 768px) {
+            /* Adjust styles for smaller screens */
+            position: absolute;
+            top: 100%; /* Push it down below the left-side */
+            left: 0; /* Align it to the left edge */
+            width: 100%; /* Make it take full width */
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        /* Adjust grid areas for smaller screens */
+        grid-template-columns: 1fr; /* Stack components vertically on small screens */
+        grid-template-rows: 1fr auto; /* Set rows to auto for proper stacking */
+        grid-template-areas:
+            "left-side"
+            "day-view"; /* Adjust grid areas for smaller screens */
     }
 }
