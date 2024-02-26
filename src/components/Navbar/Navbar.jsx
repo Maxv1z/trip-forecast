@@ -1,10 +1,12 @@
-import React from "react";
+// Navbar.js
+import React, {useState} from "react";
 import "./Navbar.style.scss";
-
 import {UserAuth} from "../../context/AuthContext";
+import Account from "../Account/Account";
 
 const Navbar = () => {
     const {googleSignIn, user, logOut} = UserAuth();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleGoogleSignIn = async () => {
         try {
@@ -14,22 +16,25 @@ const Navbar = () => {
         }
     };
 
-    const handleSingOut = async () => {
-        try {
-            await logOut();
-        } catch (error) {
-            console.log(error);
-        }
+    const toggleModal = () => {
+        setIsModalOpen(!isModalOpen);
     };
 
     return (
         <nav className="nav-container">
             <div className="app-name">Weather forecast</div>
-            <div className="user-logo">
-                {user?.displayName ? (
-                    <button onClick={handleSingOut}>Logout, {user.displayName}</button>
+            <div className="user-logo" onClick={toggleModal}>
+                {user ? (
+                    <img src={user.photoURL} alt="User" className="user-image" />
                 ) : (
                     <button onClick={handleGoogleSignIn}>Sign in</button>
+                )}
+                {isModalOpen && user && (
+                    <Account
+                        isModalOpen={isModalOpen}
+                        toggleModal={toggleModal}
+                        closeAccount={() => setIsModalOpen(false)}
+                    />
                 )}
             </div>
         </nav>

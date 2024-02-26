@@ -13,10 +13,8 @@ const Modal = ({closeModal}) => {
     const [dateEnd, setDateEnd] = useState("");
     const modalRef = useRef(null);
 
-    // Get today's date
     const today = new Date().toISOString().split("T")[0];
 
-    // Get the date for 15 days from now
     const fifteenDaysFromNow = new Date();
     fifteenDaysFromNow.setDate(fifteenDaysFromNow.getDate() + 15);
     const maxDate = fifteenDaysFromNow.toISOString().split("T")[0];
@@ -34,10 +32,14 @@ const Modal = ({closeModal}) => {
         closeModal();
     };
 
+    const handleModalClick = (e) => {
+        e.stopPropagation();
+    };
+
     return (
         <div className="modal">
-            <div className="overlay">
-                <div className="modal-content" ref={modalRef}>
+            <div className="overlay" onClick={closeModal}>
+                <div className="modal-content" ref={modalRef} onClick={handleModalClick}>
                     <div className="top-div">
                         <h3>Create trip</h3>
                         <MdClose onClick={closeModal} id="close-button" />
