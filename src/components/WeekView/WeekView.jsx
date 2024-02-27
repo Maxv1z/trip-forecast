@@ -7,10 +7,12 @@ import {format} from "date-fns";
 
 const WeekView = () => {
     const [forecast, setForecast] = useState(null);
+    const [loading, setLoading] = useState(false); // Add loading state
     const city = useActiveCity();
 
     useEffect(() => {
         const fetchWeather = async () => {
+            setLoading(true);
             try {
                 const forecastData = await getWeekWeather(
                     city.activeCity.cityName,
@@ -20,6 +22,8 @@ const WeekView = () => {
                 setForecast(forecastData);
             } catch (error) {
                 console.error("Error fetching weather:", error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -34,7 +38,7 @@ const WeekView = () => {
             <div className="scroll">
                 {forecast ? (
                     forecast.days.map((day, index) => (
-                        <WeekViewCard key={index} day={day} />
+                        <WeekViewCard key={index} day={day} loading={loading} /> // Pass loading prop to each WeekViewCard
                     ))
                 ) : (
                     <h3>Choose a city to view a forecast for it :)</h3>
