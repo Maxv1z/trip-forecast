@@ -15,6 +15,12 @@ const Cities = ({searchCity}) => {
 
     const handleModalOpen = () => {
         setIsModalOpen(true);
+        document.body.style.overflow = "hidden";
+    };
+
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+        document.body.style.overflow = "auto";
     };
 
     useEffect(() => {
@@ -68,7 +74,7 @@ const Cities = ({searchCity}) => {
                 {filteredAndSortedCities.map((city) => (
                     <CityCard key={city.id} city={city} />
                 ))}
-                {isModalOpen && <Modal closeModal={() => setIsModalOpen(false)} />}
+                {isModalOpen && <Modal closeModal={handleModalClose} />}
             </div>
             <button className="scroll-arrow right" onClick={scrollRight}>
                 <SlArrowRight />
