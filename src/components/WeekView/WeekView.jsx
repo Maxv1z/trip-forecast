@@ -30,14 +30,14 @@ const WeekView = () => {
 
     return (
         <div className="week-view-container">
-            <h1>Week</h1>
+            <h1>Forecast</h1>
             <div className="scroll">
                 {forecast ? (
                     forecast.days.map((day, index) => (
                         <WeekViewCard key={index} day={day} />
                     ))
                 ) : (
-                    <p>Loading data</p>
+                    <h3>Choose a city to view a forecast for it :)</h3>
                 )}
             </div>
         </div>
