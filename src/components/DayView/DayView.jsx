@@ -7,6 +7,7 @@ import Countdown from "./CountDown";
 
 const DayView = () => {
     const [weather, setWeather] = useState(null);
+
     const city = useActiveCity();
 
     useEffect(() => {

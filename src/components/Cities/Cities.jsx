@@ -2,7 +2,7 @@ import "./Cities.style.scss";
 import CityCard from "../CityCard/CityCard";
 import Modal from "../Modal/Modal";
 
-import {useState, useRef} from "react";
+import {useState, useRef, useEffect} from "react";
 import {useGetUserTrips} from "../../api/queries";
 
 import {SlArrowLeft} from "react-icons/sl";
@@ -16,6 +16,10 @@ const Cities = ({searchCity}) => {
     const handleModalOpen = () => {
         setIsModalOpen(true);
     };
+
+    useEffect(() => {
+        console.log("search city is updated");
+    }, [searchCity]);
 
     // Sort cities based on dateStart
     const sortedCities = cities?.slice().sort((a, b) => {

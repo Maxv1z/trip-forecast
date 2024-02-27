@@ -9,6 +9,7 @@ const Countdown = ({startDate}) => {
     });
 
     useEffect(() => {
+        updateCountdown();
         const interval = setInterval(updateCountdown, 1000);
         return () => clearInterval(interval);
     }, [startDate]);
