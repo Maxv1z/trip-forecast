@@ -10,27 +10,27 @@ const WeekView = () => {
     const [loading, setLoading] = useState(false); // Add loading state
     const city = useActiveCity();
 
-    useEffect(() => {
-        const fetchWeather = async () => {
-            setLoading(true);
-            try {
-                const forecastData = await getWeekWeather(
-                    city.activeCity.cityName,
-                    city.activeCity.dateStart,
-                    city.activeCity.dateEnd
-                );
-                setForecast(forecastData);
-            } catch (error) {
-                console.error("Error fetching weather:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchWeather = async () => {
+    //         setLoading(true);
+    //         try {
+    //             const forecastData = await getWeekWeather(
+    //                 city.activeCity.cityName,
+    //                 city.activeCity.dateStart,
+    //                 city.activeCity.dateEnd
+    //             );
+    //             setForecast(forecastData);
+    //         } catch (error) {
+    //             console.error("Error fetching weather:", error);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
 
-        if (city && city.activeCity) {
-            fetchWeather();
-        }
-    }, [city]);
+    //     if (city && city.activeCity) {
+    //         fetchWeather();
+    //     }
+    // }, [city]);
 
     return (
         <div className="week-view-container">

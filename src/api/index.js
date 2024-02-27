@@ -1,4 +1,4 @@
-import { getFirestore, collection, query, where, getDocs, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, query, where, getDocs, addDoc, doc, deleteDoc } from 'firebase/firestore';
 import axios from 'axios';
 
 const db = getFirestore();
@@ -24,6 +24,17 @@ export const getUserTrips = async () => {
         return [...trips];
     } catch (error) {
         console.error('Error getting own cities from database:', error);
+        throw error;
+    }
+};
+
+export const deleteTripFromDb = async (tripId) => {
+    try {
+        const tripDocRef = doc(db, 'trips', tripId);
+        await deleteDoc(tripDocRef);
+        console.log('Trip deleted successfully');
+    } catch (error) {
+        console.error('Error deleting trip from database:', error);
         throw error;
     }
 };
@@ -107,8 +118,5 @@ export const addTripToDb = async (dateStart, dateEnd, userId, cityName) => {
     }
 };
 
-// export const getCitiesToChoose = async () => {
-
-// }
 
 

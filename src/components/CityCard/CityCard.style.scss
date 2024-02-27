@@ -8,6 +8,16 @@
     flex-direction: column;
     cursor: pointer;
 
+    .close-button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: transparent;
+        border: none;
+        font-size: 1.1rem;
+        cursor: pointer;
+    }
+
     img {
         object-fit: cover;
         margin: 0;

@@ -10,19 +10,19 @@ const DayView = () => {
 
     const city = useActiveCity();
 
-    useEffect(() => {
-        const fetchWeather = async () => {
-            try {
-                const weatherData = await getDayWeather(city.activeCity.cityName);
-                setWeather(weatherData);
-            } catch (error) {
-                console.error("Error fetching weather:", error);
-            }
-        };
-        if (city) {
-            fetchWeather();
-        }
-    }, [city]);
+    // useEffect(() => {
+    //     const fetchWeather = async () => {
+    //         try {
+    //             const weatherData = await getDayWeather(city.activeCity.cityName);
+    //             setWeather(weatherData);
+    //         } catch (error) {
+    //             console.error("Error fetching weather:", error);
+    //         }
+    //     };
+    //     if (city) {
+    //         fetchWeather();
+    //     }
+    // }, [city]);
 
     const dayOfWeek = weather
         ? format(new Date(weather?.days[0]?.datetime), "EEEE")
