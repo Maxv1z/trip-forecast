@@ -5,7 +5,6 @@ const db = getFirestore();
 
 export const getUserTrips = async () => {
     try {
-        // Check if user data is available in localStorage
         const userData = localStorage.getItem('user');
         if (!userData) {
             console.error('User data not found in localStorage.');
@@ -14,13 +13,9 @@ export const getUserTrips = async () => {
         const user = JSON.parse(userData);
         const userId = user.uid;
 
-        // Create a reference to the 'trips' collection in Firestore
         const tripCollectionRef = collection(db, 'trips');
-        // Create a query to filter trips by userId
         const userTripsQuery = query(tripCollectionRef, where('userId', '==', userId));
-        // Get the documents that match the query
         const querySnapshot = await getDocs(userTripsQuery);
-        // Map the query snapshot to extract data
         const trips = querySnapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data(),
@@ -32,6 +27,30 @@ export const getUserTrips = async () => {
         throw error;
     }
 };
+
+export const getTripById = async (tripId) => {
+    try {
+        const tripDocRef = doc(db, 'trips', tripId);
+        const tripDocSnapshot = await getDoc(tripDocRef);
+
+        if (!tripDocSnapshot.exists()) {
+            console.error('Trip document not found.');
+            return null;
+        }
+
+        const tripData = tripDocSnapshot.data();
+        const trip = {
+            id: tripDocSnapshot.id,
+            ...tripData
+        };
+
+        return trip;
+    } catch (error) {
+        console.error('Error getting trip by ID:', error);
+        throw error;
+    }
+};
+
 
 
 export const getDayWeather = async (cityName) => {

@@ -1,15 +1,17 @@
-import {useState, useRef} from "react";
 import "./Cities.style.scss";
 import CityCard from "../CityCard/CityCard";
-import {useGetUserTrips} from "../../api/queries";
 import Modal from "../Modal/Modal";
-import {SlArrowRight} from "react-icons/sl";
+
+import {useState, useRef} from "react";
+import {useGetUserTrips} from "../../api/queries";
+
 import {SlArrowLeft} from "react-icons/sl";
+import {SlArrowRight} from "react-icons/sl";
 
 const Cities = ({searchCity}) => {
     const {data: cities, isLoading, isError, error} = useGetUserTrips();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const scrollRef = useRef(null); // Ref for accessing the scroll container
+    const scrollRef = useRef(null);
 
     const handleModalOpen = () => {
         setIsModalOpen(true);
@@ -20,12 +22,10 @@ const Cities = ({searchCity}) => {
         return new Date(a.dateStart) - new Date(b.dateStart);
     });
 
-    // Filter and sort cities based on searchCity and cityName
     const filteredAndSortedCities = sortedCities?.filter((city) =>
         city.cityName.toLowerCase().includes(searchCity.toLowerCase())
     );
 
-    // Function to scroll the container left
     const scrollLeft = () => {
         if (scrollRef.current) {
             scrollRef.current.scrollBy({
@@ -35,7 +35,6 @@ const Cities = ({searchCity}) => {
         }
     };
 
-    // Function to scroll the container right
     const scrollRight = () => {
         if (scrollRef.current) {
             scrollRef.current.scrollBy({
@@ -51,6 +50,7 @@ const Cities = ({searchCity}) => {
     if (isError) {
         return <h1>Error: {error}</h1>;
     }
+
     return (
         <div className="cities-container">
             <button className="scroll-arrow left" onClick={scrollLeft}>

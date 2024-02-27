@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { getDayWeather, getUserTrips } from './index';
+import { getUserTrips } from './index';
 import { UserAuth } from '../context/AuthContext';
 
 export function useGetUserTrips() {
@@ -20,23 +20,5 @@ export function useGetUserTrips() {
     });
 }
 
-
-
-// export function useGetTodayWeather() {
-//     const queryClient = useQueryClient();
-//     const city = useContext(ActiveCityContext);
-//     console.log(city);
-
-//     useEffect(() => {
-//         if (city) {
-//             queryClient.invalidateQueries('todays-weather');
-//         }
-//     }, [city]);
-
-//     return useQuery({
-//         queryKey: ['todays-weather'],
-//         queryFn: () => getDayWeather(city.cityName),
-//     });
-// }
 
 

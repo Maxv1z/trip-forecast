@@ -1,45 +1,55 @@
-import React, {useState, useRef} from "react";
 import "./Modal.style.scss";
+
+import {useState, useRef} from "react";
 import {MdClose} from "react-icons/md";
 import cities from "../../assets/Cities";
+
 import {addTripToDb} from "../../api";
 import {UserAuth} from "../../context/AuthContext";
+import {useQueryClient} from "@tanstack/react-query";
 
 const Modal = ({closeModal}) => {
-    const user = UserAuth();
-    const userId = user?.user.uid;
+    const queryClient = useQueryClient();
+
     const [city, setCity] = useState("");
     const [dateStart, setDateStart] = useState("");
     const [dateEnd, setDateEnd] = useState("");
     const modalRef = useRef(null);
 
-    const today = new Date().toISOString().split("T")[0];
+    const user = UserAuth();
+    const userId = user?.user.uid;
 
+    ///////// date operations to allow
+    ///////// choose date from today to next 15 days
+    const today = new Date().toISOString().split("T")[0];
     const fifteenDaysFromNow = new Date();
     fifteenDaysFromNow.setDate(fifteenDaysFromNow.getDate() + 15);
     const maxDate = fifteenDaysFromNow.toISOString().split("T")[0];
+    /////////
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
         if (new Date(dateEnd) <= new Date(dateStart)) {
             alert("End date must be greater than start date");
             return;
         }
         addTripToDb(dateStart, dateEnd, userId, city);
+
         setCity("");
         setDateStart("");
         setDateEnd("");
+        queryClient.invalidateQueries("trips");
         closeModal();
-    };
-
-    const handleModalClick = (e) => {
-        e.stopPropagation();
     };
 
     return (
         <div className="modal">
             <div className="overlay" onClick={closeModal}>
-                <div className="modal-content" ref={modalRef} onClick={handleModalClick}>
+                <div
+                    className="modal-content"
+                    ref={modalRef}
+                    onClick={(e) => e.stopPropagation()}
+                >
                     <div className="top-div">
                         <h3>Create trip</h3>
                         <MdClose onClick={closeModal} id="close-button" />
@@ -68,13 +78,6 @@ const Modal = ({closeModal}) => {
                             onChange={(e) => setDateStart(e.target.value)}
                             min={today}
                             max={maxDate}
-                            onFocus={(e) => (e.target.type = "date")}
-                            onBlur={(e) => {
-                                if (!e.target.value) {
-                                    e.target.type = "text";
-                                    e.target.value = "Select date";
-                                }
-                            }}
                             required
                         />
                         <label htmlFor="dateEnd">End Date</label>
@@ -83,13 +86,6 @@ const Modal = ({closeModal}) => {
                             id="dateEnd"
                             min={today}
                             max={maxDate}
-                            onFocus={(e) => (e.target.type = "date")}
-                            onBlur={(e) => {
-                                if (!e.target.value) {
-                                    e.target.type = "text";
-                                    e.target.value = "Select date";
-                                }
-                            }}
                             value={dateEnd}
                             onChange={(e) => setDateEnd(e.target.value)}
                             required
