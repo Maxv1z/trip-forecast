@@ -11,7 +11,7 @@ import {auth} from "../firebase";
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
-    const [user, setUser] = useState(null); // Changed initial state to null
+    const [user, setUser] = useState(null);
 
     const googleSignIn = () => {
         const provider = new GoogleAuthProvider();
@@ -21,14 +21,14 @@ export const AuthContextProvider = ({children}) => {
     const logOut = () => {
         signOut(auth).then(() => {
             localStorage.removeItem("user");
-            setUser(null); // Set user state to null after logout
+            setUser(null);
             window.location.reload();
         });
     };
 
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
-        if (storedUser) {
+        if (storedUser && storedUser !== null) {
             setUser(JSON.parse(storedUser));
         } else {
             const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {

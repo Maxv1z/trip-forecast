@@ -1,12 +1,22 @@
-// Navbar.js
-import React, {useState, useEffect} from "react";
+import {useState} from "react";
 import "./Navbar.style.scss";
+
 import {useUserAuth} from "../../context/AuthContext";
 import Account from "../Account/Account";
 
 const Navbar = () => {
-    const {googleSignIn, user, logOut} = useUserAuth();
+    const {googleSignIn, user} = useUserAuth();
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleModalOpen = () => {
+        setIsModalOpen(true);
+        document.body.style.overflow = "hidden";
+    };
+
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+        document.body.style.overflow = "auto";
+    };
 
     const handleGoogleSignIn = async () => {
         try {
@@ -16,16 +26,12 @@ const Navbar = () => {
         }
     };
 
-    const toggleModal = () => {
-        setIsModalOpen(!isModalOpen);
-    };
-
     return (
         <nav className="nav-container">
             <div className="app-name">
                 <a href="/">Weather forecast</a>
             </div>
-            <div className="user-logo" onClick={toggleModal}>
+            <div className="user-logo" onClick={handleModalOpen}>
                 {user ? (
                     <img src={user?.photoURL} alt="User" className="user-image" />
                 ) : (
@@ -34,8 +40,8 @@ const Navbar = () => {
                 {isModalOpen && user && (
                     <Account
                         isModalOpen={isModalOpen}
-                        toggleModal={toggleModal}
-                        closeAccount={() => setIsModalOpen(false)}
+                        handleModalClose={handleModalClose}
+                        handleModalOpen={handleModalOpen}
                     />
                 )}
             </div>

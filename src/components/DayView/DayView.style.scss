@@ -30,19 +30,36 @@
             align-items: center;
             width: 100%;
             margin: 15px 0 0 0;
-
-            img {
-                width: 50px;
-                height: 50px;
-                margin-right: 10px;
-            }
+            position: relative;
 
             p {
+                display: flex;
+                align-items: center;
+
                 font-size: 3.3rem;
                 text-align: center;
+                position: relative;
 
                 @media (max-width: 768px) {
                     font-size: 2rem;
+                }
+
+                .celsius {
+                    font-size: 1.8rem;
+                    margin-left: 3px;
+                    position: relative;
+                    top: -15px;
+
+                    @media (max-width: 768px) {
+                        font-size: 1rem;
+                        top: -10px;
+                    }
+                }
+
+                img {
+                    width: 50px;
+                    height: 50px;
+                    margin-right: 5px; /* Adjust margin as needed */
                 }
             }
         }
@@ -60,22 +77,5 @@
     .chose-city {
         text-align: center;
         width: 100%;
-    }
-
-    .countdown {
-        display: flex;
-        justify-content: center;
-        margin: 80px 0 0 0;
-
-        @media (max-width: 768px) {
-            margin: 10px 0 40px 0;
-        }
-
-        .countdown-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0 10px; /* Add some space between countdown items */
-        }
     }
 }

@@ -1,9 +1,9 @@
-import React, {useRef} from "react";
+import React, {useRef, useEffect} from "react";
 import {MdClose} from "react-icons/md";
 import "./Account.style.scss";
 import {useUserAuth} from "../../context/AuthContext";
 
-const Account = ({isModalOpen, toggleModal, closeAccount}) => {
+const Account = ({isModalOpen, handleModalClose, handleModalOpen}) => {
     const {user, logOut} = useUserAuth();
     const accountRef = useRef(null);
 
@@ -19,11 +19,26 @@ const Account = ({isModalOpen, toggleModal, closeAccount}) => {
         e.stopPropagation();
     };
 
+    //// useEffect to make modal close when click outside of it
+    useEffect(() => {
+        const handleOutsideClick = (e) => {
+            if (accountRef.current && !accountRef.current.contains(e.target)) {
+                handleModalClose();
+            }
+        };
+        if (isModalOpen) {
+            document.addEventListener("mousedown", handleOutsideClick);
+        } else {
+            document.removeEventListener("mousedown", handleOutsideClick);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleOutsideClick);
+        };
+    }, [isModalOpen, handleModalClose]);
+
     return (
-        <div
-            className={`modal-account ${isModalOpen ? "open" : ""}`}
-            onClick={toggleModal}
-        >
+        <div className={`modal-account ${isModalOpen ? "open" : ""}`}>
             <div className="overlay-account">
                 <div
                     className="modal-content-account"
@@ -32,7 +47,7 @@ const Account = ({isModalOpen, toggleModal, closeAccount}) => {
                 >
                     <div className="top-div-account">
                         <h3>Your account</h3>
-                        <MdClose onClick={closeAccount} id="close-button" />
+                        <MdClose onClick={handleModalClose} id="close-button" />
                     </div>
                     <div className="account-info">
                         <img src={user.photoURL} alt="" />

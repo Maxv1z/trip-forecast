@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
+import "./CountDown.style.scss";
 
 const Countdown = ({startDate}) => {
     const [countdown, setCountdown] = useState({
@@ -38,25 +39,25 @@ const Countdown = ({startDate}) => {
     return (
         <div className="countdown">
             <div className="countdown-item">
-                <span id="days">
+                <span id="days" className="numbers">
                     {countdown.days < 10 ? "0" + countdown.days : countdown.days}
                 </span>
                 <span>Days</span>
             </div>
             <div className="countdown-item">
-                <span id="hours">
+                <span id="hours" className="numbers">
                     {countdown.hours < 10 ? "0" + countdown.hours : countdown.hours}
                 </span>
                 <span>Hours</span>
             </div>
             <div className="countdown-item">
-                <span id="minutes">
+                <span id="minutes" className="numbers">
                     {countdown.minutes < 10 ? "0" + countdown.minutes : countdown.minutes}
                 </span>
                 <span>Minutes</span>
             </div>
             <div className="countdown-item">
-                <span id="seconds">
+                <span id="seconds" className="numbers">
                     {countdown.seconds < 10 ? "0" + countdown.seconds : countdown.seconds}
                 </span>
                 <span>Seconds</span>

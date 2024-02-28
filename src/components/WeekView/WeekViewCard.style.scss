@@ -6,7 +6,7 @@
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 10px;
-    position: relative;
+    min-width: 115px;
 
     @media (max-width: 768px) {
         margin: 5px;

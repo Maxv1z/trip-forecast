@@ -10,19 +10,19 @@ const DayView = () => {
 
     const city = useActiveCity();
 
-    // useEffect(() => {
-    //     const fetchWeather = async () => {
-    //         try {
-    //             const weatherData = await getDayWeather(city.activeCity.cityName);
-    //             setWeather(weatherData);
-    //         } catch (error) {
-    //             console.error("Error fetching weather:", error);
-    //         }
-    //     };
-    //     if (city) {
-    //         fetchWeather();
-    //     }
-    // }, [city]);
+    useEffect(() => {
+        const fetchWeather = async () => {
+            try {
+                const weatherData = await getDayWeather(city.activeCity.cityName);
+                setWeather(weatherData);
+            } catch (error) {
+                console.error("Error fetching weather:", error);
+            }
+        };
+        if (city) {
+            fetchWeather();
+        }
+    }, [city]);
 
     const dayOfWeek = weather
         ? format(new Date(weather?.days[0]?.datetime), "EEEE")
@@ -35,11 +35,14 @@ const DayView = () => {
                     <div className="day-weather">
                         <h3>{dayOfWeek}</h3>
                         <div className="weather-and-temp">
-                            <img
-                                src={`src/assets/icons/${weather?.days[0]?.icon}.svg`}
-                                alt=""
-                            />
-                            <p>{weather ? weather.days[0].temp : ""}°C</p>
+                            <p>
+                                <img
+                                    src={`src/assets/icons/${weather?.days[0]?.icon}.svg`}
+                                    alt=""
+                                />
+                                {weather ? weather.days[0].temp : "No temp :)"}
+                                <span className="celsius">°C</span>
+                            </p>
                         </div>
                         <p className="city-name">{weather ? weather.address : ""}</p>
                     </div>
