@@ -5,7 +5,7 @@ import {MdClose} from "react-icons/md";
 import cities from "../../assets/Cities";
 
 import {addTripToDb} from "../../api";
-import {UserAuth} from "../../context/AuthContext";
+import {useUserAuth} from "../../context/AuthContext";
 import {useQueryClient} from "@tanstack/react-query";
 
 const Modal = ({closeModal}) => {
@@ -16,7 +16,7 @@ const Modal = ({closeModal}) => {
     const [dateEnd, setDateEnd] = useState("");
     const modalRef = useRef(null);
 
-    const user = UserAuth();
+    const user = useUserAuth();
     const userId = user?.user.uid;
 
     ///////// date operations to allow

@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getUserTrips } from './index';
-import { UserAuth } from '../context/AuthContext';
+import { useUserAuth } from '../context/AuthContext';
 
 export function useGetUserTrips() {
     const queryClient = useQueryClient();
-    const user = UserAuth();
+    const user = useUserAuth();
 
     useEffect(() => {
         if (user) {

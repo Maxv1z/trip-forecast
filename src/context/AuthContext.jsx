@@ -4,28 +4,24 @@ import {
     onAuthStateChanged,
     signOut,
     signInWithRedirect,
-    signInWithPopup,
+    getRedirectResult,
 } from "firebase/auth";
 import {auth} from "../firebase";
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(null); // Changed initial state to null
 
     const googleSignIn = () => {
         const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider).then((result) => {
-            // Save user data to localStorage
-            localStorage.setItem("user", JSON.stringify(result.user));
-        });
+        signInWithRedirect(auth, provider);
     };
 
     const logOut = () => {
         signOut(auth).then(() => {
-            // Remove user data from localStorage
             localStorage.removeItem("user");
-            // Refresh the window
+            setUser(null); // Set user state to null after logout
             window.location.reload();
         });
     };
@@ -33,18 +29,19 @@ export const AuthContextProvider = ({children}) => {
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
-            // If user data is available in localStorage, set the user state
             setUser(JSON.parse(storedUser));
         } else {
-            // If user data is not available in localStorage, set up the listener
-            const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
                 if (currentUser) {
                     setUser(currentUser);
-                    // Save user data to localStorage
                     localStorage.setItem("user", JSON.stringify(currentUser));
                 } else {
-                    // Try to log in user if not available in localStorage
+                    // Redirect the user to sign in with Google if not authenticated
                     signInWithRedirect(auth, new GoogleAuthProvider());
+                    // Check for redirect result
+                    const userCred = await getRedirectResult(auth);
+                    setUser(userCred.user);
+                    localStorage.setItem("user", JSON.stringify(userCred.user));
                 }
             });
             return () => {
@@ -60,6 +57,6 @@ export const AuthContextProvider = ({children}) => {
     );
 };
 
-export const UserAuth = () => {
+export const useUserAuth = () => {
     return useContext(AuthContext);
 };

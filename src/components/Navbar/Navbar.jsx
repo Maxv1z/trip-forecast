@@ -1,11 +1,11 @@
 // Navbar.js
 import React, {useState, useEffect} from "react";
 import "./Navbar.style.scss";
-import {UserAuth} from "../../context/AuthContext";
+import {useUserAuth} from "../../context/AuthContext";
 import Account from "../Account/Account";
 
 const Navbar = () => {
-    const {googleSignIn, user, logOut} = UserAuth();
+    const {googleSignIn, user, logOut} = useUserAuth();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleGoogleSignIn = async () => {

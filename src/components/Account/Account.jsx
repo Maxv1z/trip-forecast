@@ -1,10 +1,10 @@
 import React, {useRef} from "react";
 import {MdClose} from "react-icons/md";
 import "./Account.style.scss";
-import {UserAuth} from "../../context/AuthContext";
+import {useUserAuth} from "../../context/AuthContext";
 
 const Account = ({isModalOpen, toggleModal, closeAccount}) => {
-    const {user, logOut} = UserAuth();
+    const {user, logOut} = useUserAuth();
     const accountRef = useRef(null);
 
     const handleSingOut = async () => {
