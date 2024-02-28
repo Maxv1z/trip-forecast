@@ -8,6 +8,53 @@
     flex-direction: column;
     cursor: pointer;
 
+    // &.skeleton {
+    //     border: 1px solid #ddd;
+    //     margin: 0;
+    //     padding: 0;
+    //     cursor: auto;
+    //     display: flex;
+
+    //     .img-skeleton {
+    //         display: flex;
+    //         margin: 0;
+    //         padding: 0;
+    //         border-radius: 0;
+    //         align-items: flex-start;
+    //     }
+
+    //     @media screen and (max-width: 768px) {
+    //         max-width: 150px;
+    //         max-height: 300px;
+
+    //         img {
+    //             width: 148px;
+    //             height: 148px;
+    //         }
+
+    //         .text-container {
+    //             padding: 8px;
+
+    //             h3 {
+    //                 font-size: 0.9rem;
+    //             }
+
+    //             p {
+    //                 font-size: 0.8rem;
+    //             }
+    //         }
+    //     }
+
+    //     .text-container.skeleton {
+    //         margin: 0;
+    //         padding: 0;
+    //         h3 {
+    //             width: 100%;
+    //             margin-left: 10px;
+    //         }
+    //     }
+    // }
+
     .close-button {
         position: absolute;
         top: 5px;
@@ -74,5 +121,12 @@
                 font-size: 0.8rem;
             }
         }
+    }
+
+    .skeleton-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 }

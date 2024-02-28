@@ -27,7 +27,6 @@ const Cities = ({searchCity}) => {
         console.log("search city is updated");
     }, [searchCity]);
 
-    // Sort cities based on dateStart
     const sortedCities = cities?.slice().sort((a, b) => {
         return new Date(a.dateStart) - new Date(b.dateStart);
     });
@@ -55,7 +54,11 @@ const Cities = ({searchCity}) => {
     };
 
     if (isLoading) {
-        return <h1>Loading</h1>;
+        return (
+            <div className="loader-container">
+                <h1>Loading your trips :)</h1>
+            </div>
+        );
     }
     if (isError) {
         return <h1>Error: {error}</h1>;
@@ -72,7 +75,7 @@ const Cities = ({searchCity}) => {
                     <p>Add trip</p>
                 </button>
                 {filteredAndSortedCities.map((city) => (
-                    <CityCard key={city.id} city={city} />
+                    <CityCard key={city.id} city={city} isLoading={isLoading} />
                 ))}
                 {isModalOpen && <Modal closeModal={handleModalClose} />}
             </div>

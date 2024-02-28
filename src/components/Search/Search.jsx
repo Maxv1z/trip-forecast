@@ -8,14 +8,15 @@ const Search = ({searchCity}) => {
 
     const handleSearchCityChange = (event) => {
         const value = event.target.value;
+        // setting city value to typed value (whole words, not signs)
         setCity(value);
 
         clearTimeout(typingTimeout);
-
+        // setting timer to wait 1 second after user stops clicking before updating searchCity
         setTypingTimeout(
             setTimeout(() => {
                 searchCity(value);
-            }, 1500)
+            }, 1000)
         );
     };
 
