@@ -9,7 +9,7 @@ export function useGetUserTrips() {
 
     useEffect(() => {
         if (user) {
-            // If a user is logged in, invalidate the 'trips' query
+            // If a user is logged in, invalidate the 'trips' to do first loading
             queryClient.invalidateQueries('trips');
         }
     }, [user]);

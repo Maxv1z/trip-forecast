@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from "react";
 import "./DayView.style.scss";
+import {useEffect, useState} from "react";
+import {format} from "date-fns";
+
 import {getDayWeather} from "../../api";
 import {useActiveCity} from "../../context/ActiveCityContext";
-import {format} from "date-fns";
 import Countdown from "./CountDown";
 
 const DayView = () => {

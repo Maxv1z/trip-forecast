@@ -16,7 +16,7 @@ export const ActiveCityContextProvider = ({children}) => {
     );
 };
 
-// Custom hook to consume the context
+// Custom hook to consume the context without calling it like a context
 export const useActiveCity = () => {
     return useContext(ActiveCityContext);
 };

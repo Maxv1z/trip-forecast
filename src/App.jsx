@@ -1,4 +1,5 @@
 import {useState} from "react";
+
 import Navbar from "./components/Navbar/Navbar";
 import Cities from "./components/Cities/Cities";
 import Search from "./components/Search/Search";
@@ -10,7 +11,7 @@ import "./App.style.scss";
 export default function App() {
     const [searchCity, setSearchCity] = useState("");
 
-    const handleSearchTermChange = (value) => {
+    const handleSearchChange = (value) => {
         setSearchCity(value);
     };
 
@@ -18,7 +19,7 @@ export default function App() {
         <>
             <div className="left-side">
                 <Navbar className="navbar" />
-                <Search className="search" searchCity={handleSearchTermChange} />
+                <Search className="search" searchCity={handleSearchChange} />
                 <Cities className="cities" searchCity={searchCity} />
                 <WeekView className="week-view" />
             </div>

@@ -39,34 +39,33 @@ export const deleteTripFromDb = async (tripId) => {
     }
 };
 
-export const getTripById = async (tripId) => {
-    try {
-        const tripDocRef = doc(db, 'trips', tripId);
-        const tripDocSnapshot = await getDoc(tripDocRef);
+// export const getTripById = async (tripId) => {
+//     try {
+//         const tripDocRef = doc(db, 'trips', tripId);
+//         const tripDocSnapshot = await getDoc(tripDocRef);
 
-        if (!tripDocSnapshot.exists()) {
-            console.error('Trip document not found.');
-            return null;
-        }
+//         if (!tripDocSnapshot.exists()) {
+//             console.error('Trip document not found.');
+//             return null;
+//         }
 
-        const tripData = tripDocSnapshot.data();
-        const trip = {
-            id: tripDocSnapshot.id,
-            ...tripData
-        };
+//         const tripData = tripDocSnapshot.data();
+//         const trip = {
+//             id: tripDocSnapshot.id,
+//             ...tripData
+//         };
 
-        return trip;
-    } catch (error) {
-        console.error('Error getting trip by ID:', error);
-        throw error;
-    }
-};
-
+//         return trip;
+//     } catch (error) {
+//         console.error('Error getting trip by ID:', error);
+//         throw error;
+//     }
+// };
 
 
 export const getDayWeather = async (cityName) => {
     try {
-        const key = 'GJSG9X7EXWMMVWCZ6YK9Y27P3';
+        const key = import.meta.env.VITE_WEATHER_API_KEY;
         const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${cityName}/today?unitGroup=metric&include=days&key=${key}&contentType=json`;
 
         const response = await axios.get(url);
@@ -83,7 +82,7 @@ export const getDayWeather = async (cityName) => {
 
 export const getWeekWeather = async (cityName, dateStart, dateEnd) => {
     try {
-        const key = 'GJSG9X7EXWMMVWCZ6YK9Y27P3';
+        const key = import.meta.env.VITE_WEATHER_API_KEY;
         const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${cityName}/${dateStart}/${dateEnd}?unitGroup=metric&key=${key} `;
 
         const response = await axios.get(url);

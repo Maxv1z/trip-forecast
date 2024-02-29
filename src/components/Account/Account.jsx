@@ -1,9 +1,11 @@
-import React, {useRef, useEffect} from "react";
-import {MdClose} from "react-icons/md";
 import "./Account.style.scss";
+import {useRef, useEffect} from "react";
+
+import {MdClose} from "react-icons/md";
+
 import {useUserAuth} from "../../context/AuthContext";
 
-const Account = ({isModalOpen, handleModalClose, handleModalOpen}) => {
+const Account = ({isModalOpen, handleModalClose}) => {
     const {user, logOut} = useUserAuth();
     const accountRef = useRef(null);
 
@@ -35,7 +37,7 @@ const Account = ({isModalOpen, handleModalClose, handleModalOpen}) => {
         return () => {
             document.removeEventListener("mousedown", handleOutsideClick);
         };
-    }, [isModalOpen, handleModalClose]);
+    }, [isModalOpen]);
 
     return (
         <div className={`modal-account ${isModalOpen ? "open" : ""}`}>

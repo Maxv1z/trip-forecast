@@ -2,7 +2,7 @@ import "./Cities.style.scss";
 import CityCard from "../CityCard/CityCard";
 import Modal from "../Modal/Modal";
 
-import {useState, useRef, useEffect} from "react";
+import {useState, useRef} from "react";
 import {useGetUserTrips} from "../../api/queries";
 
 import {SlArrowLeft} from "react-icons/sl";
@@ -13,19 +13,15 @@ const Cities = ({searchCity}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const scrollRef = useRef(null);
 
-    const handleModalOpen = () => {
-        setIsModalOpen(true);
-        document.body.style.overflow = "hidden";
+    const handleModalToggle = (isOpen) => {
+        setIsModalOpen(isOpen);
+        document.body.style.overflow = isOpen ? "hidden" : "auto";
     };
 
-    const handleModalClose = () => {
-        setIsModalOpen(false);
-        document.body.style.overflow = "auto";
-    };
-
-    useEffect(() => {
-        console.log("search city is updated");
-    }, [searchCity]);
+    /// useEffect to check search city updated function
+    // useEffect(() => {
+    //     console.log("search city is updated");
+    // }, [searchCity]);
 
     const sortedCities = cities?.slice().sort((a, b) => {
         return new Date(a.dateStart) - new Date(b.dateStart);
@@ -35,21 +31,19 @@ const Cities = ({searchCity}) => {
         city.cityName.toLowerCase().includes(searchCity.toLowerCase())
     );
 
-    const scrollLeft = () => {
+    const scroll = (side) => {
         if (scrollRef.current) {
-            scrollRef.current.scrollBy({
-                left: -200,
+            const scrollOptions = {
                 behavior: "smooth",
-            });
-        }
-    };
+            };
 
-    const scrollRight = () => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollBy({
-                left: 200,
-                behavior: "smooth",
-            });
+            if (side === "left") {
+                scrollOptions.left = -200;
+            } else if (side === "right") {
+                scrollOptions.left = 200;
+            }
+
+            scrollRef.current.scrollBy(scrollOptions);
         }
     };
 
@@ -66,20 +60,23 @@ const Cities = ({searchCity}) => {
 
     return (
         <div className="cities-container">
-            <button className="scroll-arrow left" onClick={scrollLeft}>
+            <button className="scroll-arrow left" onClick={() => scroll("left")}>
                 <SlArrowLeft />
             </button>
             <div className="scroll" ref={scrollRef}>
-                <button className="add-city-button" onClick={handleModalOpen}>
+                <button
+                    className="add-city-button"
+                    onClick={() => handleModalToggle(true)}
+                >
                     <p className="plus">+</p>
                     <p>Add trip</p>
                 </button>
                 {filteredAndSortedCities.map((city) => (
                     <CityCard key={city.id} city={city} isLoading={isLoading} />
                 ))}
-                {isModalOpen && <Modal closeModal={handleModalClose} />}
+                {isModalOpen && <Modal closeModal={() => handleModalToggle(false)} />}
             </div>
-            <button className="scroll-arrow right" onClick={scrollRight}>
+            <button className="scroll-arrow right" onClick={() => scroll("right")}>
                 <SlArrowRight />
             </button>
         </div>

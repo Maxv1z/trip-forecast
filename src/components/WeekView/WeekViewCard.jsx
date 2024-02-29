@@ -1,4 +1,3 @@
-import React from "react";
 import "./WeekViewCard.style.scss";
 import {format} from "date-fns";
 import Skeleton from "react-loading-skeleton";

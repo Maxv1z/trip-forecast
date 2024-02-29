@@ -57,6 +57,7 @@ export const AuthContextProvider = ({children}) => {
     );
 };
 
+// use context here instead of calling it in components
 export const useUserAuth = () => {
     return useContext(AuthContext);
 };
