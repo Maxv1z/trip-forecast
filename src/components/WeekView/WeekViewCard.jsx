@@ -23,10 +23,7 @@ const WeekViewCard = ({day, loading}) => {
             ) : (
                 <>
                     <p className="day-of-the-week">{dayOfWeek}</p>
-                    <img
-                        src={`../../../public/icons/${day.icon}.svg`}
-                        alt="weather image"
-                    />
+                    <img src={`/icons/${day.icon}.svg`} alt="weather image" />
                     <p className="temperature">
                         {day?.tempmax}°C/{day?.tempmin}°C
                     </p>

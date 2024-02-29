@@ -38,7 +38,7 @@ const DayView = () => {
                         <div className="weather-and-temp">
                             <p>
                                 <img
-                                    src={`../../../public/icons/${weather?.days[0]?.icon}.svg`}
+                                    src={`/icons/${weather?.days[0]?.icon}.svg`}
                                     alt=""
                                 />
                                 {weather ? weather.days[0].temp : "No temp :)"}
