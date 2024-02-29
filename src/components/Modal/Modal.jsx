@@ -2,7 +2,7 @@ import "./Modal.style.scss";
 
 import {useState, useRef} from "react";
 import {MdClose} from "react-icons/md";
-import cities from "../../assets/cities.js";
+import cities from "../../assets/Cities.js";
 
 import {addTripToDb} from "../../api";
 import {useUserAuth} from "../../context/AuthContext";
