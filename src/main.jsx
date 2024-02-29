@@ -9,6 +9,8 @@ const queryClient = new QueryClient();
 import {AuthContextProvider} from "./context/AuthContext";
 import {ActiveCityContextProvider} from "./context/ActiveCityContext";
 
+console.log("env vars", import.meta.env.VITE_apiKey);
+
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
